@@ -42,8 +42,14 @@ jobs:
       run: |
         source .venv/bin/activate
         nohup python mypython.py &
-        sleep 10 # Wait for the server to start
-        curl -f http://localhost:5001/ # Test if the server is running on the expected port
+
+    - name: Wait for Flask to start
+      run: |
+        sleep 10
+
+    - name: Test Flask app
+      run: |
+        curl -f http://localhost:5001/
 
     - name: Stop Flask app
       run: |
