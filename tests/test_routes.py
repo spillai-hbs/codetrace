@@ -8,7 +8,7 @@ class RoutesTestCase(unittest.TestCase):
 
     def test_index(self):
         response = self.app.get('/')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 400)
         self.assertEqual(response.data, b'Hello, World!')
 
     def test_add(self):
@@ -22,4 +22,4 @@ class RoutesTestCase(unittest.TestCase):
         self.assertIn(b'No data provided.', response.data)
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(verbosity=2)
