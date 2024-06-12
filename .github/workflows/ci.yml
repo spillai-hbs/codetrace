@@ -19,6 +19,10 @@ jobs:
       with:
         python-version: '3.12'
 
+    - name: Remove existing virtual environment
+      run: |
+        if [ -d ".venv" ]; then rm -rf .venv; fi
+
     - name: Install virtualenv
       run: |
         pip install virtualenv
