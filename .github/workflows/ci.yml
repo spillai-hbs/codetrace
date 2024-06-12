@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m venv .venv
+        source .venv/bin/activate
+        pip install -r requirements.txt
+
+    - name: Run tests
+      run: |
+        source .venv/bin/activate
+        python -m unittest discover -s tests
+
+    - name: Start Flask app
+      run: |
+        source .venv/bin/activate
+        nohup python mypython.py &
+        sleep 10 # Wait for the server to start
+        curl -f http://localhost:5001/ # Test if the server is running on the expected port
+
+    - name: Stop Flask app
+      run: |
+        pkill -f "python mypython.py"
