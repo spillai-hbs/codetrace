@@ -21,18 +21,23 @@ jobs:
 
     - name: Install dependencies
       run: |
-        python3 -m venv .venv
-        . .venv/bin/activate
+        python -m venv .venv
+        echo "Activate virtual environment"
+        source .venv/bin/activate
+        which python
+        python --version
         pip install -r requirements.txt
 
     - name: Run tests
       run: |
-        . .venv/bin/activate
+        source .venv/bin/activate
+        which python
+        python --version
         python -m unittest discover -s tests
 
     - name: Start Flask app
       run: |
-        . .venv/bin/activate
+        source .venv/bin/activate
         nohup python mypython.py &
         sleep 10 # Wait for the server to start
         curl -f http://localhost:5001/ # Test if the server is running on the expected port
