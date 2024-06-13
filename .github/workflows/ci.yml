@@ -58,3 +58,7 @@ jobs:
     - name: Stop Flask app
       run: |
         pkill -f "python mypython.py"
+
+    - name: Code Review with ChatGPT
+      uses: cirolini/genai-code-review@v2
+            
